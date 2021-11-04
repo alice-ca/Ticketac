@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <%- include('navbar') %>
+
+        <main>
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="titre">
+                        <h4 class="mt-5 mb-4 text-white offset-4">My last trips :</h4>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-8">
+                        <table class="table table-hover">
+                            <tr class="table-light p-2">
+                                <th>Date</th>
+                                <th>Journey</th>
+                                <th>Departure time</th>
+                                <th>Price</th>
+                            </tr>
+                            <tr class="table-light">
+                                <td>02/12/18</td>
+                                <td>Lille-Dijon</td>
+                                <td>15:00</td>
+                                <td>68€</td>
+                            </tr>
+                            <tr class="table-light">
+                                <td>12/12/12</td>
+                                <td>Rouen-Paris</td>
+                                <td>12:00</td>
+                                <td>63€</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-danger offset-9">Home</button>
+            </div>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
