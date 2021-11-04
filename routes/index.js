@@ -1,67 +1,53 @@
 var express = require('express');
 var router = express.Router();
 
-const mongoose = require('mongoose');
+const journeyModel = require('../models/journeys');
+const userModel = require('../models/users');
 
-// useNewUrlParser ;)
-var options = {
-  connectTimeoutMS: 5000,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-};
 
-// --------------------- BDD -----------------------------------------------------
-mongoose.connect('mongodb+srv://alice:Capsule1995$@cluster0.vjira.mongodb.net/Ticketac?retryWrites=true&w=majority',
-  options,
-  function (err) {
-    if (err) {
-      console.log(`error, failed to connect to the database because --> ${err}`);
-    } else {
-      console.info('*** Database Ticketac connection : Success ***');
-    }
+//LOGIN
+router.get("/", function (req, res, next) {
+  if (req.session.user == undefined) {
+    req.session.user = {};
   }
-);
-
-var journeySchema = mongoose.Schema({
-  departure: String,
-  arrival: String,
-  date: Date,
-  departureTime: String,
-  price: Number,
+  res.render("login");
 });
 
-var journeyModel = mongoose.model('journey', journeySchema);
-
-var city = ["Paris", "Marseille", "Nantes", "Lyon", "Rennes", "Melun", "Bordeaux", "Lille"]
-var date = ["2018-11-20", "2018-11-21", "2018-11-22", "2018-11-23", "2018-11-24"]
-
-
-
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('login', { title: 'Express' });
-
-});
-
-router.get('/booking', function(req, res, next) {
+//BOOKING
+router.get('/booking', function (req, res, next) {
   res.render('booking', { title: 'Express' });
-
 });
 
-router.get('/home', function (req, res, next) {
-  res.render('home');
+//SEARCH
+router.get('/search', function (req, res, next) {
+  res.render('search');
 });
 
+//CARD
 router.get('/card', function (req, res, next) {
   res.render('card');
 });
 
-router.get('/order', function (req, res, next) {
-  res.render('order');
+//ORDERS
+router.get('/orders', function (req, res, next) {
+  res.render('orders');
 });
 
 
+
+
+
+
+
+
+
+
+
+
 // Remplissage de la base de donnée, une fois suffit
+
+var city = ["Paris", "Marseille", "Nantes", "Lyon", "Rennes", "Melun", "Bordeaux", "Lille"]
+var date = ["2018-11-20", "2018-11-21", "2018-11-22", "2018-11-23", "2018-11-24"]
 router.get('/save', async function (req, res, next) {
 
   // How many journeys we want
