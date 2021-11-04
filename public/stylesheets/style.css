@@ -8,3 +8,7 @@ body {
   background: linear-gradient(rgb(197, 222, 233), rgb(107, 169, 207));
   background-repeat: no-repeat;
 }
+
+#landmark {
+  width:20%;
+}
