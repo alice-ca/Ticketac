@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -18,7 +19,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    lastTrips: [{ type: mongoose.Schema.Types.ObjectId, ref: 'journeys' }],
+    lastTrips: [lastTrips],
 });
 
 const userModel = mongoose.model("users", userSchema);
