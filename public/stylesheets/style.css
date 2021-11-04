@@ -1,8 +1,10 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(rgb(197, 222, 233), rgb(107, 169, 207));
 }
 
-a {
-  color: #00B7FF;
+#landmark {
+  width:20%;
+  margin : 20px auto;
 }
