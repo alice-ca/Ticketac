@@ -7,10 +7,7 @@ const userModel = require('../models/users');
 
 //LOGIN
 router.get("/", function (req, res, next) {
-  if (req.session.user == undefined) {
-    req.session.user = {};
-  }
-  res.render("login");
+  res.render("login", { users: req.session.user });
 });
 
 
