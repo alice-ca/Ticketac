@@ -13,14 +13,28 @@ router.get("/", function (req, res, next) {
   res.render("login");
 });
 
-//BOOKING
-router.get('/booking', function (req, res, next) {
-  res.render('booking', { title: 'Express' });
-});
 
 //SEARCH
 router.get('/search', function (req, res, next) {
   res.render('search');
+});
+
+//BOOKING
+router.post('/booking', async function (req, res, next) {
+
+  var date = new Date(req.body.date);
+
+  var matchingJourneys = await journeyModel.find({
+    departure: req.body.departure,
+    arrival: req.body.arrival,
+    date: new Date(req.body.date),
+  });
+
+  if (matchingJourneys == []) {
+    res.render('booking', { matchingJourneys, date });
+  } else {
+    res.render('fail');
+  }
 });
 
 //CARD
