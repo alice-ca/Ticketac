@@ -53,19 +53,35 @@ router.get('/card', function (req, res, next) {
 
 
 //CONFIRM
-/*router.get('/confirm', function (req, res, next) {
+router.get('/confirm', async function (req, res, next) {
   var user = await userModel.findById(req.session.user.id);
+  console.log(req.session.card)
+
   for (let i = 0; i < req.session.card.length; i++) {
+
     user.lastTrips.push(req.session.card[i]._id);
   }
   await user.save();
   res.redirect('/');
-});*/
+});
 
 //LASTTRIPS
 router.get('/lastTrips', async function (req, res, next) {
-  res.render('lastTrips');
+  var user = await userModel.findById(req.session.user.id).populate('lastTrips').exec()
+  var lastTrips = user.lastTrips
+  res.render('lastTrips', { lastTrips });
 });
+
+
+
+// footer
+// check graphismes
+// vider panier quand on confirme
+// check pq card marche 1 fois sur 2
+// pouvoir aller sur toutes les pages QUE si session + login/sign-in (redirect si req.session==undefined)
+// clic sur connection : logout si req.session
+
+
 
 
 

@@ -10,24 +10,33 @@ router.get('/', function (req, res, next) {
 /* POST sign-up page. */
 router.post("/sign-up", async function (req, res, next) {
   var userExists = await UserModel.findOne({ email: req.body.email });
-  // console.log(userExists);
+  console.log(userExists);
   if (userExists) {
     res.redirect("/");
   } else {
     var newUser = new UserModel({
-      name: req.body.lastname,
+      lastName: req.body.lastname,
       firstName: req.body.firstname,
       email: req.body.email,
       password: req.body.password,
       lastTrips: []
     });
+
     newUser = await newUser.save();
+
+    req.session.user = {
+      lastName: newUser.lastName,
+      firstName: newUser.firstName,
+      id: newUser._id,
+    };
+
+    console.log(req.session.user);
 
     res.redirect("/search");
   }
 });
 
-// SIGN-IN
+//SIGN - IN
 router.post("/sign-in", async function (req, res, next) {
   var userExists = await UserModel.findOne({
     email: req.body.email,
@@ -39,7 +48,7 @@ router.post("/sign-in", async function (req, res, next) {
       firstName: userExists.firstName,
       id: userExists._id,
     };
-    //console.log(req.session.user);
+    console.log(req.session.user);
     res.redirect("/search");
   } else {
     res.redirect("/");
@@ -47,7 +56,7 @@ router.post("/sign-in", async function (req, res, next) {
 });
 
 // router.get("/logout", function(req, res, next) {
-//   req.session.user = null;
+//  req.session.user = null;
 
 //   res.redirect("/");
 // });
