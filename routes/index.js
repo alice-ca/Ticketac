@@ -34,7 +34,7 @@ router.post('/booking', async function (req, res, next) {
   }
 });
 
-//CARD
+//ADD-CARD
 router.get('/addCard', async function (req, res, next) {
   if (!req.session.card) {
     req.session.card = []
@@ -44,14 +44,26 @@ router.get('/addCard', async function (req, res, next) {
 
   req.session.card.push(addedJourney);
 
+  res.redirect('/card');
+});
 
-  console.log(req.session.card);
-
+router.get('/card', function (req, res, next) {
   res.render('card', { card: req.session.card });
 });
 
+
+//CONFIRM
+/*router.get('/confirm', function (req, res, next) {
+  var user = await userModel.findById(req.session.user.id);
+  for (let i = 0; i < req.session.card.length; i++) {
+    user.lastTrips.push(req.session.card[i]._id);
+  }
+  await user.save();
+  res.redirect('/');
+});*/
+
 //LASTTRIPS
-router.get('/lastTrips', function (req, res, next) {
+router.get('/lastTrips', async function (req, res, next) {
   res.render('lastTrips');
 });
 
