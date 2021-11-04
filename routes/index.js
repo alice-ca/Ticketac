@@ -43,10 +43,10 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/booking', function(req, res, next) {
+  res.render('booking', { title: 'Express' });
 
+});
 
 router.get('/home', function (req, res, next) {
   res.render('home');
