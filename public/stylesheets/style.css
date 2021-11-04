@@ -1,8 +1,10 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
 
-a {
-  color: #00B7FF;
+body {
+  /*margin: 0px;
+  padding: 0px;*/
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*box-sizing: border-box;*/
+  height: 100vh;
+  background: linear-gradient(rgb(197, 222, 233), rgb(107, 169, 207));
+  background-repeat: no-repeat;
 }
