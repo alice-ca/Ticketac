@@ -22,7 +22,7 @@ router.post("/sign-up", async function (req, res, next) {
     });
     newUser = await newUser.save();
     
-    res.redirect("/booking");
+    res.redirect("/search");
   }
 });
 
@@ -39,7 +39,7 @@ router.post("/sign-in", async function (req, res, next) {
       id: userExists._id,
     };
     //console.log(req.session.user);
-    res.redirect("/booking");
+    res.redirect("/search");
   } else {
     res.redirect("/");
   }
