@@ -18,6 +18,8 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     }
+    //,
+    //lastTrips: [{ type: mongoose.Schema.Types.ObjectId, ref: 'journeys' }],
 });
 
 const userModel = mongoose.model("users", userSchema);

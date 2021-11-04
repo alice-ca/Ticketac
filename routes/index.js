@@ -27,7 +27,7 @@ router.post('/booking', async function (req, res, next) {
     date: new Date(req.body.date),
   });
 
-  if (matchingJourneys == []) {
+  if (matchingJourneys !== []) {
     res.render('booking', { matchingJourneys, date });
   } else {
     res.render('fail');
@@ -35,13 +35,24 @@ router.post('/booking', async function (req, res, next) {
 });
 
 //CARD
-router.get('/card', function (req, res, next) {
-  res.render('card');
+router.get('/addCard', async function (req, res, next) {
+  if (!req.session.card) {
+    req.session.card = []
+  }
+
+  var addedJourney = await journeyModel.findById(req.query.id);
+
+  req.session.card.push(addedJourney);
+
+
+  console.log(req.session.card);
+
+  res.render('card', { card: req.session.card });
 });
 
-//ORDERS
-router.get('/orders', function (req, res, next) {
-  res.render('orders');
+//LASTTRIPS
+router.get('/lastTrips', function (req, res, next) {
+  res.render('lastTrips');
 });
 
 
