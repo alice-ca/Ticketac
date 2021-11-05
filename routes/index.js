@@ -8,7 +8,7 @@ const userModel = require('../models/users');
 //LOGIN
 router.get("/", function (req, res, next) {
   if (!req.session.user) {
-    req.session.user = {};
+    req.session.user = null;
   }
   res.render("login", { users: req.session.user });
 });
@@ -18,7 +18,7 @@ router.get("/", function (req, res, next) {
 router.get('/search', function (req, res, next) {
   if (req.session.user) {
     res.render('search');
-  } else if (req.session.user == {}) {
+  } else {
     res.redirect('/');
   }
 });
@@ -123,26 +123,16 @@ router.get('/lastTrips', async function (req, res, next) {
   }
 });
 
-
-<<<<<<< HEAD
-=======
-// check graphismes
-// vider panier quand on confirme
-// check pq card marche 1 fois sur 2
-// pouvoir aller sur toutes les pages QUE si session + login/sign-in (redirect si req.session==undefined) : (rajouter un pop-up pour dire qu'on doit se logger ?)
-// clic sur connection : logout si req.session
-// gérer route confirm
-
+router.get('/connect', function (req, res, next) {
+  if (req.session.user) {
+    req.session.user = null;
+    res.redirect('/');
+  } else {
+    res.redirect('/');
+  }
+});
 
 
-
-
-
-
-
-
-
->>>>>>> ba609fc82a8560b70b7d842db599ed0dd19443c1
 
 
 
