@@ -6,7 +6,7 @@ var options = {
     useUnifiedTopology: true
 };
 
-mongoose.connect('mongodb+srv://alice:Capsule1995$@cluster0.vjira.mongodb.net/Ticketac?retryWrites=true&w=majority',
+mongoose.connect('MONGO_URI',
     options,
     function (err) {
         if (err) {
