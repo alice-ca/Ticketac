@@ -106,6 +106,7 @@ router.get('/lastTrips', async function (req, res, next) {
   }
 });
 
+//CONNECT
 router.get('/connect', function (req, res, next) {
   if (req.session.user) {
     req.session.user = null;
