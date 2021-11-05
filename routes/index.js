@@ -30,10 +30,12 @@ router.post('/booking', async function (req, res, next) {
     date: new Date(req.body.date),
   });
 
-  if (matchingJourneys !== []) {
-    res.render('booking', { matchingJourneys, date });
-  } else {
+  console.log(matchingJourneys);
+
+  if (matchingJourneys == []) {
     res.render('fail');
+  } else {
+    res.render('booking', { matchingJourneys, date });
   }
 });
 
@@ -65,6 +67,8 @@ router.get('/confirm', async function (req, res, next) {
     user.lastTrips.push(req.session.card[i]._id);
   }
   await user.save();
+  req.session.card = [];
+
   res.redirect('/');
 });
 
@@ -81,17 +85,9 @@ router.get('/lastTrips', async function (req, res, next) {
 // check pq card marche 1 fois sur 2
 // pouvoir aller sur toutes les pages QUE si session + login/sign-in (redirect si req.session==undefined) : (rajouter un pop-up pour dire qu'on doit se logger ?)
 // clic sur connection : logout si req.session
-<<<<<<< HEAD
 // gérer route confirm  
 // gestion majuscule/minuscule
 //toggle gestion
-
-=======
-// gérer route confirm
-// gestion majuscule/minuscule
-// toggle gestion
->>>>>>> 60dd57ec9f644cb905a18307717ad50e14877745
-
 
 
 
