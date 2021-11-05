@@ -7,8 +7,8 @@ const userModel = require('../models/users');
 
 //LOGIN
 router.get("/", function (req, res, next) {
-  if (req.session.user == undefined) {
-    req.session.user = [];
+  if (req.session.user) {
+    req.session.user = {};
   }
   res.render("login", { users: req.session.user });
 });
@@ -16,78 +16,110 @@ router.get("/", function (req, res, next) {
 
 //SEARCH
 router.get('/search', function (req, res, next) {
-  res.render('search');
+  if (req.session.user) {
+    console.log(req.session.user)
+    res.render('search');
+  } else if (req.session.user == {} || req.session.user == null) {
+    console.log(req.session.user)
+    res.redirect('/');
+  }
 });
 
 //BOOKING
 router.post('/booking', async function (req, res, next) {
+  if (req.session.user) {
+    var date = new Date(req.body.date);
 
-  var date = new Date(req.body.date);
+    var matchingJourneys = await journeyModel.find({
+      departure: req.body.departure,
+      arrival: req.body.arrival,
+      date: new Date(req.body.date),
+    });
 
-  var matchingJourneys = await journeyModel.find({
-    departure: req.body.departure,
-    arrival: req.body.arrival,
-    date: new Date(req.body.date),
-  });
+    if (matchingJourneys == []) {
+      res.render('fail');
+    } else {
+      res.render('booking', { matchingJourneys, date });
+    }
 
-  console.log(matchingJourneys);
-
-  if (matchingJourneys == []) {
-    res.render('fail');
   } else {
-    res.render('booking', { matchingJourneys, date });
+    res.redirect('/');
   }
 });
 
 //ADD-CARD
 router.get('/addCard', async function (req, res, next) {
-  if (!req.session.card) {
-    req.session.card = []
+  if (req.session.user) {
+
+    if (!req.session.card) {
+      req.session.card = []
+    }
+
+    var addedJourney = await journeyModel.findById(req.query.id);
+
+    req.session.card.push(addedJourney);
+
+    res.redirect('/card');
+  } else {
+    res.redirect('/');
   }
-
-  var addedJourney = await journeyModel.findById(req.query.id);
-
-  req.session.card.push(addedJourney);
-
-  res.redirect('/card');
 });
 
 router.get('/card', function (req, res, next) {
-  res.render('card', { card: req.session.card });
+  if (req.session.user) {
+    res.render('card', { card: req.session.card });
+  } else {
+    res.redirect('/');
+  }
 });
 
 
 //CONFIRM
 router.get('/confirm', async function (req, res, next) {
-  var user = await userModel.findById(req.session.user.id);
-  console.log(req.session.card)
+  if (req.session.user) {
+    var user = await userModel.findById(req.session.user.id);
 
-  for (let i = 0; i < req.session.card.length; i++) {
+    for (let i = 0; i < req.session.card.length; i++) {
 
-    user.lastTrips.push(req.session.card[i]._id);
+      user.lastTrips.push(req.session.card[i]._id);
+    }
+    await user.save();
+    req.session.card = [];
+
+    res.redirect('/');
+  } else {
+    res.redirect('/');
   }
-  await user.save();
-  req.session.card = [];
-
-  res.redirect('/');
 });
 
 //LASTTRIPS
 router.get('/lastTrips', async function (req, res, next) {
-  var user = await userModel.findById(req.session.user.id).populate('lastTrips').exec()
-  var lastTrips = user.lastTrips
-  res.render('lastTrips', { lastTrips });
+  if (req.session.user) {
+    console.log(req.session.user)
+    var user = await userModel.findById(req.session.user.id).populate('lastTrips').exec()
+    var lastTrips = user.lastTrips
+    res.render('lastTrips', { lastTrips });
+  } else {
+    res.redirect('/');
+  }
 });
 
-// footer
-// check graphismes
-// vider panier quand on confirme
-// check pq card marche 1 fois sur 2
+//CONNECT
+router.get('/connect', function (req, res, next) {
+  if (req.session.user) {
+    req.session.user == {};
+    res.redirect('/')
+  } else {
+    res.redirect('/');
+  }
+});
+
+
+
 // pouvoir aller sur toutes les pages QUE si session + login/sign-in (redirect si req.session==undefined) : (rajouter un pop-up pour dire qu'on doit se logger ?)
 // clic sur connection : logout si req.session
 // gérer route confirm  
 // gestion majuscule/minuscule
-//toggle gestion
 
 
 
