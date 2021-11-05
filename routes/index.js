@@ -30,10 +30,12 @@ router.post('/booking', async function (req, res, next) {
     date: new Date(req.body.date),
   });
 
-  if (matchingJourneys !== []) {
-    res.render('booking', { matchingJourneys, date });
-  } else {
+  console.log(matchingJourneys);
+
+  if (matchingJourneys == []) {
     res.render('fail');
+  } else {
+    res.render('booking', { matchingJourneys, date });
   }
 });
 
@@ -65,6 +67,8 @@ router.get('/confirm', async function (req, res, next) {
     user.lastTrips.push(req.session.card[i]._id);
   }
   await user.save();
+  req.session.card = [];
+
   res.redirect('/');
 });
 
