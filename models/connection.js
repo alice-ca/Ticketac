@@ -6,7 +6,7 @@ var options = {
     useUnifiedTopology: true
 };
 
-mongoose.connect('MONGO_URI',
+mongoose.connect(process.env.MONGO_URI,
     options,
     function (err) {
         add
