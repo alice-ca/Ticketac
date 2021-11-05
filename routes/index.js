@@ -83,7 +83,7 @@ router.get('/lastTrips', async function (req, res, next) {
 // clic sur connection : logout si req.session
 // gérer route confirm
 // gestion majuscule/minuscule
-// toggle gestion
+
 
 
 
