@@ -9,6 +9,7 @@ var options = {
 mongoose.connect('MONGO_URI',
     options,
     function (err) {
+        add
         if (err) {
             console.log(`error, failed to connect to the database because --> ${err}`);
         } else {
