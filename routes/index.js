@@ -75,22 +75,17 @@ router.get('/lastTrips', async function (req, res, next) {
   res.render('lastTrips', { lastTrips });
 });
 
-// footer
+
 // check graphismes
 // vider panier quand on confirme
 // check pq card marche 1 fois sur 2
 // pouvoir aller sur toutes les pages QUE si session + login/sign-in (redirect si req.session==undefined) : (rajouter un pop-up pour dire qu'on doit se logger ?)
 // clic sur connection : logout si req.session
-
 // gérer route confirm  
 // gestion majuscule/minuscule
-//toggle gestion
-
-// gérer route confirm
-// gestion majuscule/minuscule
 
 
-// toggle gestion
+
 
 
 
