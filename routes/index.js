@@ -16,6 +16,7 @@ router.get("/", function (req, res, next) {
 
 //SEARCH
 router.get('/search', function (req, res, next) {
+
   res.render('search');
 });
 
@@ -23,14 +24,19 @@ router.get('/search', function (req, res, next) {
 router.post('/booking', async function (req, res, next) {
 
   var date = new Date(req.body.date);
+  var newstring = function (string) { 
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+  
 
   var matchingJourneys = await journeyModel.find({
-    departure: req.body.departure,
-    arrival: req.body.arrival,
+    departure: newstring(req.body.departure),
+    arrival: newstring(req.body.arrival),
     date: new Date(req.body.date),
   });
+  
 
-  console.log(matchingJourneys);
+  //console.log(matchingJourneys);
 
   if (matchingJourneys == []) {
     res.render('fail');
@@ -86,7 +92,7 @@ router.get('/lastTrips', async function (req, res, next) {
 // pouvoir aller sur toutes les pages QUE si session + login/sign-in (redirect si req.session==undefined) : (rajouter un pop-up pour dire qu'on doit se logger ?)
 // clic sur connection : logout si req.session
 // gérer route confirm  
-// gestion majuscule/minuscule
+
 
 
 
