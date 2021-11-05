@@ -7,7 +7,7 @@ const userModel = require('../models/users');
 
 //LOGIN
 router.get("/", function (req, res, next) {
-  if (req.session.user) {
+  if (!req.session.user) {
     req.session.user = {};
   }
   res.render("login", { users: req.session.user });
@@ -17,10 +17,8 @@ router.get("/", function (req, res, next) {
 //SEARCH
 router.get('/search', function (req, res, next) {
   if (req.session.user) {
-    console.log(req.session.user)
     res.render('search');
-  } else if (req.session.user == {} || req.session.user == null) {
-    console.log(req.session.user)
+  } else if (req.session.user == {}) {
     res.redirect('/');
   }
 });
@@ -113,14 +111,6 @@ router.get('/connect', function (req, res, next) {
     res.redirect('/');
   }
 });
-
-
-
-// pouvoir aller sur toutes les pages QUE si session + login/sign-in (redirect si req.session==undefined) : (rajouter un pop-up pour dire qu'on doit se logger ?)
-// clic sur connection : logout si req.session
-// gérer route confirm  
-// gestion majuscule/minuscule
-
 
 
 
