@@ -28,32 +28,15 @@ router.post('/booking', async function (req, res, next) {
   if (req.session.user) {
     var date = new Date(req.body.date);
 
-    var matchingJourneys = await journeyModel.find({
-      departure: req.body.departure,
-      arrival: req.body.arrival,
-      date: new Date(req.body.date),
-    });
-
-    if (matchingJourneys == []) {
-      res.render('fail');
-    } else {
-      res.render('booking', { matchingJourneys, date });
-    }
-
-    var date = new Date(req.body.date);
     var newstring = function (string) {
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
-
 
     var matchingJourneys = await journeyModel.find({
       departure: newstring(req.body.departure),
       arrival: newstring(req.body.arrival),
       date: new Date(req.body.date),
     });
-
-
-    //console.log(matchingJourneys);
 
     if (matchingJourneys == []) {
       res.render('fail');
