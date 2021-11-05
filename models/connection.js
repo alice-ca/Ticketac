@@ -6,13 +6,7 @@ var options = {
     useUnifiedTopology: true
 };
 
-const identifiants = {
-    mdp: "MOT DE PASSE",
-    identifiant: "IDENTIFIANT",
-    nomCluster: "CLUSTER",
-};
-
-mongoose.connect('mongodb+srv://${identifiants.identifiant}:${identifiants.mdp}@${identifiants.nomCluster}.mongodb.net/Ticketac?retryWrites=true',
+mongoose.connect('mongodb+srv://alice:Capsule1995$@cluster0.vjira.mongodb.net/Ticketac?retryWrites=true&w=majority',
     options,
     function (err) {
         if (err) {
