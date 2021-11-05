@@ -40,6 +40,27 @@ router.post('/booking', async function (req, res, next) {
       res.render('booking', { matchingJourneys, date });
     }
 
+    var date = new Date(req.body.date);
+    var newstring = function (string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+
+
+    var matchingJourneys = await journeyModel.find({
+      departure: newstring(req.body.departure),
+      arrival: newstring(req.body.arrival),
+      date: new Date(req.body.date),
+    });
+
+
+    //console.log(matchingJourneys);
+
+    if (matchingJourneys == []) {
+      res.render('fail');
+    } else {
+      res.render('booking', { matchingJourneys, date });
+    }
+
   } else {
     res.redirect('/');
   }
@@ -102,18 +123,26 @@ router.get('/lastTrips', async function (req, res, next) {
   }
 });
 
-//CONNECT
-router.get('/connect', function (req, res, next) {
-  if (req.session.user) {
-    req.session.user == {};
-    res.redirect('/')
-  } else {
-    res.redirect('/');
-  }
-});
+
+<<<<<<< HEAD
+=======
+// check graphismes
+// vider panier quand on confirme
+// check pq card marche 1 fois sur 2
+// pouvoir aller sur toutes les pages QUE si session + login/sign-in (redirect si req.session==undefined) : (rajouter un pop-up pour dire qu'on doit se logger ?)
+// clic sur connection : logout si req.session
+// gérer route confirm
 
 
 
+
+
+
+
+
+
+
+>>>>>>> ba609fc82a8560b70b7d842db599ed0dd19443c1
 
 
 
