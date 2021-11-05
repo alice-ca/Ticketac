@@ -6,10 +6,9 @@ var options = {
     useUnifiedTopology: true
 };
 
-mongoose.connect(process.env.MONGO_URI,
+mongoose.connect('mongodb+srv://alice:Capsule1995$@cluster0.vjira.mongodb.net/Ticketac?retryWrites=true&w=majority',
     options,
     function (err) {
-        add
         if (err) {
             console.log(`error, failed to connect to the database because --> ${err}`);
         } else {
