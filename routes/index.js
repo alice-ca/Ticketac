@@ -1,9 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const journeyModel = require('../models/journeys');
 const userModel = require('../models/users');
-
 
 //LOGIN
 router.get("/", function (req, res, next) {
@@ -12,7 +11,6 @@ router.get("/", function (req, res, next) {
   }
   res.render("login", { users: req.session.user });
 });
-
 
 //SEARCH
 router.get('/search', function (req, res, next) {
@@ -26,13 +24,13 @@ router.get('/search', function (req, res, next) {
 //BOOKING
 router.post('/booking', async function (req, res, next) {
   if (req.session.user) {
-    var date = new Date(req.body.date);
+    const date = new Date(req.body.date);
 
-    var newstring = function (string) {
+    const newstring = (string) => {
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
 
-    var matchingJourneys = await journeyModel.find({
+    const matchingJourneys = await journeyModel.find({
       departure: newstring(req.body.departure),
       arrival: newstring(req.body.arrival),
       date: new Date(req.body.date),
@@ -57,7 +55,7 @@ router.get('/addCard', async function (req, res, next) {
       req.session.card = []
     }
 
-    var addedJourney = await journeyModel.findById(req.query.id);
+    const addedJourney = await journeyModel.findById(req.query.id);
 
     req.session.card.push(addedJourney);
 
@@ -67,6 +65,7 @@ router.get('/addCard', async function (req, res, next) {
   }
 });
 
+//PANIER
 router.get('/card', function (req, res, next) {
   if (req.session.user) {
     res.render('card', { card: req.session.card });
@@ -75,16 +74,15 @@ router.get('/card', function (req, res, next) {
   }
 });
 
-
 //CONFIRM
 router.get('/confirm', async function (req, res, next) {
   if (req.session.user) {
-    var user = await userModel.findById(req.session.user.id);
+    const user = await userModel.findById(req.session.user.id);
 
     for (let i = 0; i < req.session.card.length; i++) {
-
       user.lastTrips.push(req.session.card[i]._id);
     }
+
     await user.save();
     req.session.card = [];
 
@@ -98,8 +96,8 @@ router.get('/confirm', async function (req, res, next) {
 router.get('/lastTrips', async function (req, res, next) {
   if (req.session.user) {
     console.log(req.session.user)
-    var user = await userModel.findById(req.session.user.id).populate('lastTrips').exec()
-    var lastTrips = user.lastTrips
+    const user = await userModel.findById(req.session.user.id).populate('lastTrips').exec()
+    const lastTrips = user.lastTrips
     res.render('lastTrips', { lastTrips });
   } else {
     res.redirect('/');
